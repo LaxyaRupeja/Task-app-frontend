@@ -1,0 +1,72 @@
+<div class="mt-20 p-5">
+  <h1 *ngIf="tasks.length == 0" class="text-xl text-center">
+    No Task Available
+  </h1>
+  <div *ngFor="let task of tasks" class="p-4 rounded-xl shadow-md mb-4 border">
+    <h2
+      *ngIf="task.status == 'completed'"
+      class="text-xl font-semibold line-through"
+    >
+      {{ task.title }}
+    </h2>
+    <h2 *ngIf="task.status != 'completed'" class="text-xl font-semibold">
+      {{ task.title }}
+    </h2>
+    <p class="text-gray-400">{{ task.description }}</p>
+    <div class="flex items-center mt-2 justify-between">
+      <div class="flex items-center">
+        <p class="text-md">Status: {{ task.status }}</p>
+        <div class="divider divider-horizontal"></div>
+        <div class="text-md">
+          Priority:
+          <div class="badge badge-primary badge-outline">
+            {{ task.priority }}
+          </div>
+        </div>
+      </div>
+      <div>Created on {{ task.createdAt | date }}</div>
+    </div>
+    <div class="divider mt-[0.3rem] mb-[0.3rem]"></div>
+    <div class="mt-4 flex justify-between">
+      <div class="flex items-center gap-2">
+        <a routerLink="task/update/{{ task._id }}"
+          ><button class="btn btn-info">Update</button></a
+        >
+        <button class="btn btn-error" (click)="handleDeleteTask(task._id)">
+          Delete
+          <span
+            *ngIf="isDeleteLoading"
+            class="loading loading-spinner loading-md"
+          ></span>
+        </button>
+      </div>
+      <div class="flex items-center gap-2">
+        <a routerLink="task/details/{{ task._id }}"
+          ><button class="btn">View</button></a
+        >
+        <button
+          *ngIf="task.status == 'completed'"
+          class="btn btn-success"
+          (click)="handleMarkAsUnCompleted(task)"
+        >
+          Mark as Uncompleted
+          <span
+            *ngIf="isMarkedAsUnCompletedLoading"
+            class="loading loading-spinner loading-md"
+          ></span>
+        </button>
+        <button
+          *ngIf="task.status != 'completed'"
+          class="btn btn-success"
+          (click)="handleMarkAsCompleted(task)"
+        >
+          Mark as Completed
+          <span
+            *ngIf="isMarkedAsCompletedLoading"
+            class="loading loading-spinner loading-md"
+          ></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

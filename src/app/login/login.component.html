@@ -1,0 +1,32 @@
+<div class="mt-20 flex justify-center items-center">
+  <div
+    class="flex flex-col w-1/2 border p-10 rounded-xl border-base-content border-opacity-50"
+  >
+    <h1 class="text-3xl">Login</h1>
+    <div class="divider"></div>
+    <form class="flex flex-col gap-2" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-1">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          [(ngModel)]="user.email"
+          class="input input-bordered"
+          placeholder="Enter your email"
+          name="email"
+        />
+      </div>
+      <label for="password">Password</label>
+      <div class="flex flex-col gap-1">
+        <input
+          type="password"
+          [(ngModel)]="user.password"
+          class="input input-bordered"
+          placeholder="Enter your password"
+          name="password"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <a class="mt-4" routerLink="/register">Don't have an account? Register</a>
+  </div>
+</div>

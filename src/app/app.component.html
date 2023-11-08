@@ -1,0 +1,20 @@
+<div class="navbar bg-base-100 fixed top-0">
+  <div class="flex-1">
+    <a routerLink="" class="btn btn-ghost normal-case text-xl"
+      >Task Management App</a
+    >
+  </div>
+  <div class="">
+    <ul class="menu menu-horizontal px-1 text-lg">
+      <li><a routerLink="">Dashboard</a></li>
+      <a routerLink="task/create"
+        ><button class="btn btn-warning">Create Task</button></a
+      >
+      <li *ngIf="!isLogged"><a routerLink="/login">Login</a></li>
+      <li *ngIf="isLogged"><a (click)="handleLogout()">Logout</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- This is the Router Outlet to Setup all the Route in the application -->
+<router-outlet></router-outlet>

@@ -1,0 +1,52 @@
+<div class="p-4 rounded-md border mt-20 w-[50%] m-auto">
+  <h2 *ngIf="task.status == 'completed'" class="text-4xl font-semibold line-through">{{ task.title }}</h2>
+  <h2 *ngIf="task.status != 'completed'" class="text-4xl font-semibold">{{ task.title }}</h2>
+  <p class="text-gray-400 text-xl mt-4">
+    {{ task.description }}
+  </p>
+  <div class="divider"></div>
+  <div class="flex mt-2 flex-col font-semibold">
+    <span class="text-lg">Status: {{ task.status }}</span>
+    <span class="text-lg">Priority: {{ task.priority }}</span>
+    <span class="text-lg">Created at: {{ task.createdAt | date }}</span>
+  </div>
+  <div class="divider"></div>
+  <div class="mt-4 flex justify-between">
+    <div class="flex items-center gap-2">
+      <a routerLink="/task/update/{{ task._id }}"
+        ><button class="btn btn-info">Update</button></a
+      >
+      <button class="btn btn-error" (click)="handleDeleteTask(task._id)">
+        Delete
+        <span
+          *ngIf="isDeleteLoading"
+          class="loading loading-spinner loading-md"
+        ></span>
+      </button>
+    </div>
+    <div class="flex items-center gap-2">
+      <button
+        *ngIf="task.status == 'completed'"
+        class="btn btn-success"
+        (click)="handleMarkAsUnCompleted(task)"
+      >
+        Mark as Uncompleted
+        <span
+          *ngIf="isMarkedAsUnCompletedLoading"
+          class="loading loading-spinner loading-md"
+        ></span>
+      </button>
+      <button
+        *ngIf="task.status != 'completed'"
+        class="btn btn-success"
+        (click)="handleMarkAsCompleted(task)"
+      >
+        Mark as Completed
+        <span
+          *ngIf="isMarkedAsCompletedLoading"
+          class="loading loading-spinner loading-md"
+        ></span>
+      </button>
+    </div>
+  </div>
+</div>

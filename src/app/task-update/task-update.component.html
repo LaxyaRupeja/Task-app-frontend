@@ -1,0 +1,58 @@
+<div class="mt-20 p-5 flex flex-col justify-center items-center">
+  <div class="w-[50%] border p-5 rounded-xl">
+    <h1 class="text-3xl font-semibold mb-3">Update a Task</h1>
+    <div class="divider"></div>
+    <form class="flex flex-col gap-3" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-1">
+        <label for="title">Task Title</label>
+        <input
+          [(ngModel)]="task.title"
+          name="title"
+          id="title"
+          type="text"
+          class="input input-bordered"
+          placeholder="Enter Task Title"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="description">Task Description</label>
+        <textarea
+          [(ngModel)]="task.description"
+          id="description"
+          name="description"
+          class="textarea textarea-bordered"
+          placeholder="Enter Task Description"
+        ></textarea>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="priority">Priority</label>
+        <select
+          class="select select-bordered"
+          id="priority"
+          name="priority"
+          [(ngModel)]="task.priority"
+        >
+          <option disabled selected>Select Priority</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="status">Status</label>
+        <select
+          class="select select-bordered"
+          id="status"
+          name="status"
+          [(ngModel)]="task.status"
+        >
+          <option disabled selected>Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+          <option value="overdue">Overdue</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">SUBMIT</button>
+    </form>
+  </div>
+</div>
