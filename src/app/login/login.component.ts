@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
@@ -18,17 +19,21 @@ export class LoginComponent {
     email: '',
     password: '',
   };
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
   onSubmit(): void {
     if (!this.user.email || !this.user.password) return;
-    this.http.post('https://quaint-teal-kilt.cyclic.app/api/user/login', this.user).subscribe({
-      next(res: any) {
-        console.log(res);
-        localStorage.setItem('token', res.token);
-      },
-      error(err) {
-        console.log(err);
-      },
-    });
+    const self = this;
+    this.http
+      .post('https://quaint-teal-kilt.cyclic.app/api/user/login', this.user)
+      .subscribe({
+        next(res: any) {
+          console.log(res);
+          localStorage.setItem('token', res.token);
+          self.router.navigate(['/']);
+        },
+        error(err) {
+          console.log(err);
+        },
+      });
   }
 }
