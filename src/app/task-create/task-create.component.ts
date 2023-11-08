@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../task.service';
 import { createTask } from '../task.interface';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { NgToastService } from 'ng-angular-popup';
   templateUrl: './task-create.component.html',
   styleUrls: ['./task-create.component.css'],
 })
-export class TaskCreateComponent {
+export class TaskCreateComponent implements OnInit {
   task: createTask = {
     title: '',
     description: '',
@@ -43,5 +43,15 @@ export class TaskCreateComponent {
         });
       },
     });
+  }
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigate(['/login']);
+      this.toast.error({
+        summary: 'Please login to continue',
+        detail: 'Error',
+      });
+    }
   }
 }

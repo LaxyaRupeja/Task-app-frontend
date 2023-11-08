@@ -48,7 +48,7 @@ export class TaskListComponent implements OnInit {
           detail: 'Task Marked As Completed Successfully!!',
           summary: 'Task Marked As Completed Successfully!!',
           duration: 5000,
-        })
+        });
       },
       error(msg) {
         console.log('Something went wrong', msg);
@@ -56,7 +56,7 @@ export class TaskListComponent implements OnInit {
         self.toast.error({
           detail: 'Task Marked As Completed Failed!!',
           summary: 'Task Marked As Completed Failed!!',
-        })
+        });
       },
     });
   }
@@ -79,7 +79,7 @@ export class TaskListComponent implements OnInit {
           detail: 'Task Marked As UnCompleted Successfully!!',
           summary: 'Task Marked As UnCompleted Successfully!!',
           duration: 5000,
-        })
+        });
       },
       error(msg) {
         console.log('Something went wrong', msg);
@@ -87,7 +87,7 @@ export class TaskListComponent implements OnInit {
         self.toast.error({
           detail: 'Task Marked As UnCompleted Failed!!',
           summary: 'Task Marked As UnCompleted Failed!!',
-        })
+        });
       },
     });
   }
@@ -106,7 +106,7 @@ export class TaskListComponent implements OnInit {
           detail: 'Task Deleted Successfully!!',
           summary: 'Task Deleted Successfully!!',
           duration: 5000,
-        })
+        });
       },
       error(msg) {
         console.log('Something went wrong', msg);
@@ -114,7 +114,7 @@ export class TaskListComponent implements OnInit {
         self.toast.error({
           detail: 'Task Deletion Failed!!',
           summary: 'Task Deletion Failed!!',
-        })
+        });
       },
     });
   }
@@ -122,6 +122,10 @@ export class TaskListComponent implements OnInit {
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     if (!token) {
+      this.toast.error({
+        summary: 'Please login to continue',
+        detail: 'Error',
+      });
       this.router.navigate(['/login']);
     }
     this.fetchTasks();

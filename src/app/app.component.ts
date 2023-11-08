@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ export class AppComponent implements OnInit {
   title = 'Task-Management-App_Frontend';
   isLogged = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private toast: NgToastService) {}
   handleLogout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
@@ -20,6 +21,10 @@ export class AppComponent implements OnInit {
     if (!token) {
       this.router.navigate(['/login']);
       this.isLogged = false;
+      this.toast.error({
+        detail: 'Please login to continue',
+        summary: 'Error',
+      });
     } else {
       this.isLogged = true;
     }
