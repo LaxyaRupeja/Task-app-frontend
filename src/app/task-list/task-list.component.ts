@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../task.interface';
 import { TaskService } from '../task.service';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-task-list',
@@ -15,7 +16,11 @@ export class TaskListComponent implements OnInit {
   isMarkedAsCompletedLoading: boolean = false;
   isMarkedAsUnCompletedLoading: boolean = false;
   isDeleteLoading: boolean = false;
-  constructor(private taskService: TaskService, private router: Router) {}
+  constructor(
+    private taskService: TaskService,
+    private router: Router,
+    private toast: NgToastService
+  ) {}
 
   // This is the fetchTasks() method that will fetch all the tasks from the database.
   fetchTasks() {
@@ -39,10 +44,19 @@ export class TaskListComponent implements OnInit {
         console.log('Task updated', updatedTask);
         self.fetchTasks();
         self.isMarkedAsCompletedLoading = false;
+        self.toast.success({
+          detail: 'Task Marked As Completed Successfully!!',
+          summary: 'Task Marked As Completed Successfully!!',
+          duration: 5000,
+        })
       },
       error(msg) {
         console.log('Something went wrong', msg);
         self.isMarkedAsCompletedLoading = false;
+        self.toast.error({
+          detail: 'Task Marked As Completed Failed!!',
+          summary: 'Task Marked As Completed Failed!!',
+        })
       },
     });
   }
@@ -61,10 +75,19 @@ export class TaskListComponent implements OnInit {
         console.log('Task updated', updatedTask);
         self.fetchTasks();
         self.isMarkedAsUnCompletedLoading = false;
+        self.toast.success({
+          detail: 'Task Marked As UnCompleted Successfully!!',
+          summary: 'Task Marked As UnCompleted Successfully!!',
+          duration: 5000,
+        })
       },
       error(msg) {
         console.log('Something went wrong', msg);
         self.isMarkedAsUnCompletedLoading = false;
+        self.toast.error({
+          detail: 'Task Marked As UnCompleted Failed!!',
+          summary: 'Task Marked As UnCompleted Failed!!',
+        })
       },
     });
   }
@@ -79,10 +102,19 @@ export class TaskListComponent implements OnInit {
         console.log('Task deleted', deletedTask);
         self.fetchTasks();
         self.isDeleteLoading = false;
+        self.toast.success({
+          detail: 'Task Deleted Successfully!!',
+          summary: 'Task Deleted Successfully!!',
+          duration: 5000,
+        })
       },
       error(msg) {
         console.log('Something went wrong', msg);
         self.isDeleteLoading = false;
+        self.toast.error({
+          detail: 'Task Deletion Failed!!',
+          summary: 'Task Deletion Failed!!',
+        })
       },
     });
   }

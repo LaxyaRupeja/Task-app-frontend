@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Task } from '../task.interface';
 import { TaskService } from '../task.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-task',
@@ -19,7 +20,8 @@ export class TaskComponent {
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toast:NgToastService
   ) {}
 
 
@@ -35,10 +37,19 @@ export class TaskComponent {
         console.log('Task updated', updatedTask);
         self.fetchTask();
         self.isMarkedAsCompletedLoading = false;
+        self.toast.success({
+          detail: 'Task Marked As Completed Successfully!!',
+          summary: 'Task Marked As Completed Successfully!!',
+          duration: 5000,
+        })
       },
       error(msg) {
         console.log('Something went wrong', msg);
         self.isMarkedAsCompletedLoading = false;
+        self.toast.error({
+          detail: 'Task Marked As Completed Failed!!',
+          summary: 'Task Marked As Completed Failed!!',
+        })
       },
     });
   }
@@ -55,10 +66,19 @@ export class TaskComponent {
         console.log('Task updated', updatedTask);
         self.fetchTask();
         self.isMarkedAsUnCompletedLoading = false;
+        self.toast.success({
+          detail: 'Task Marked As UnCompleted Successfully!!',
+          summary: 'Task Marked As UnCompleted Successfully!!',
+          duration: 5000,
+        })
       },
       error(msg) {
         console.log('Something went wrong', msg);
         self.isMarkedAsUnCompletedLoading = false;
+        self.toast.error({
+          detail: 'Task Marked As UnCompleted Failed!!',
+          summary: 'Task Marked As UnCompleted Failed!!',
+        })
       },
     });
   }
@@ -73,10 +93,19 @@ export class TaskComponent {
         self.fetchTask();
         self.isDeleteLoading = false;
         self.router.navigate(['/']);
+        self.toast.success({
+          detail: 'Task Deleted Successfully!!',
+          summary: 'Task Deleted Successfully!!',
+          duration: 5000,
+        })
       },
       error(msg) {
         console.log('Something went wrong', msg);
         self.isDeleteLoading = false;
+        self.toast.error({
+          detail: 'Task Deletion Failed!!',
+          summary: 'Task Deletion Failed!!',
+        })
       },
     });
   }
